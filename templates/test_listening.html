@@ -92,7 +92,7 @@
         <div id="test" class="py-3 px-lg-5 test test-listening view content"
              data-test-id="1"
              data-test-type="listening"
-             data-session-id="{{ session_id }}"
+             data-session-id="static"
              data-audio-src="/audio/listening.mp3"
         >
 
@@ -1966,7 +1966,7 @@
                 url: "/notice",
                 type: "POST",
                 beforeSend: function(xhr) {
-                    xhr.setRequestHeader("X-CSRF-Token", "ab37f7f32d5242c679af55da3d475f4b2e4185f921d08121f82d42f284d1d2f86ea7ec79278264697e4e828457b8121476f4c023be54355f7ddabae4446dde6f");
+                    xhr.setRequestHeader("X-CSRF-Token", "");
                 },
                 data: {
                     event: eventName,
