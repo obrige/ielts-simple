@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Admin - Parts</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+<style>
+.admin-nav { background: #1a237e; color: #fff; padding: 12px 20px; display: flex; gap: 20px; }
+.admin-nav a { color: #fff; text-decoration: none; }
+.container { max-width: 900px; }
+</style>
+</head>
+<body>
+<div class="admin-nav"><strong>IELTS Admin</strong> <a href="/admin/tests">Tests</a> <a href="/board">← Frontend</a></div>
+<div class="container mt-4">
+    <h3>Parts for: {{ test.title }} <a href="/admin/tests" class="btn btn-sm btn-outline-secondary float-end">← Back</a></h3>
+    <table class="table">
+        <thead><tr><th>#</th><th>Title</th><th>Actions</th></tr></thead>
+        <tbody>
+        {% for p in parts %}
+        <tr>
+            <td>{{ p.part_number }}</td>
+            <td>{{ p.title }}</td>
+            <td><a href="/admin/parts/{{ p.id }}/edit" class="btn btn-sm btn-primary">Edit Questions</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

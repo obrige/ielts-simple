@@ -1,0 +1,539 @@
+.bc-branding {
+    color: #333333;
+}
+body.bc-branding {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+@media (min-width: 1200px) {
+    /*Override some bc-theme.css stuff*/
+    .bc-branding .container {
+        /*width: 1140px;*/
+    }
+}
+
+/*Override some bc-theme.css stuff*/
+.bc-branding .row {
+    /*margin-left: unset;*/
+    /*margin-right: unset;*/
+}
+
+.bc-branding .bg-grayish {
+    background-color: #414042;
+}
+
+.bc-branding h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.bc-branding h2 {
+    font-size: 1.444rem;
+    margin-bottom: 30px;
+}
+
+.bc-branding p {
+    margin: 0 0 25px;
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.bc-branding .bc-banner {
+    height: 136px;
+    font-size: 1rem;
+}
+
+.bc-branding .bc-banner a {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 767.98px) {
+    .bc-branding .bc-banner a {
+        flex-direction: column;
+    }
+}
+.bc-branding .bc-banner .red-bar, .bc-branding .bc-footer .red-bar {
+    height: 36px;
+    background-color: #E31837;
+}
+
+.bc-branding .bc-banner .logos {
+    align-items: stretch;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.bc-branding .bc-logos,
+.bc-branding .ielts-logo {
+    display: flex;
+}
+
+.bc-branding .bc-banner span {
+    display: inline-block;
+    padding: 10px 10px 10px 5px;
+}
+
+.bc-branding .bc-banner .bc-logos img {
+    max-height: 50px;
+    display: inline-block;
+}
+
+@media (max-width: 767.98px) {
+    .bc-branding .bc-banner .bc-logos img {
+        max-height: 25px;
+    }
+}
+
+.bc-branding .bc-banner .ielts-logo {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.bc-branding .bc-banner .ielts-logo img {
+    max-height: 60px;
+}
+
+.bc-branding > .container,
+.bc-branding .wrap > .container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+.bc-branding input[type='radio'], .bc-branding input[type='checkbox'] {
+    vertical-align: text-bottom;
+}
+
+.bc-branding form p,
+.bc-branding form label {
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.bc-branding form input[type='text'],
+.bc-branding form select,
+.bc-branding form input[type='email'] {
+    /*border-width: 1px;*/
+    /*border-style: solid;*/
+    /*border: #b3b3b3;*/
+    border-radius: 0;
+}
+
+.bc-branding form input + .validation-message,
+.bc-branding form div.input:not(.has-error) .validation-message {
+    display: none;
+}
+
+.bc-branding form input:focus {
+    outline: 0;
+    outline-color: transparent;
+}
+
+.bc-branding form .input:not(.has-error) input:focus:not(:invalid),
+.bc-branding form input:focus:not(:invalid) {
+    border-color: #346e9e;
+    box-shadow: inset 0 0 0 1px #346e9e;
+}
+
+.bc-branding form input:invalid + .validation-message,
+.bc-branding form .has-error .validation-message {
+    display: inline-block;
+}
+
+/*Sticky footer*/
+body.bc-branding > .wrap {
+    min-height: 100vh;
+    padding-bottom: 266px;
+    position: relative;
+    background: #ebeff0;
+}
+.bc-branding .bc-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 266px;
+    font-size: 14px;
+    /*Override some bc-theme.css stuff*/
+    padding: 0 0 0 0;
+}
+
+.bc-branding .bc-footer .red-bar {
+    height: 25px;
+}
+.bc-branding .bc-footer .content p {
+    font-size: 14px;
+}
+.bc-branding .bc-footer .content {
+    min-height: 241px;
+    margin: 0 auto;
+    padding-top: 45px;
+}
+.bc-branding .bc-footer .content a {
+    display: inline-block;
+}
+.bc-branding .bc-footer .content li {
+    padding: 0 15px;
+    margin-bottom: 30px;
+}
+.bc-branding .bc-footer .content img {
+    min-width: 80px;
+    height: 80px;
+}
+
+.bc-branding .bc-footer .copy {
+    margin-top: 25px;
+}
+
+.bc-branding .bc-footer, .bc-footer a, .bc-branding .bc-footer a:active, .bc-branding .bc-footer a:visited {
+    color: white;
+}
+
+.bc-branding .bc-footer img {
+    max-height: 60px;
+}
+
+.bc-branding .bc-footer ul {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0 0;
+}
+
+.bc-branding .bc-footer li {
+    display: inline-block;
+}
+
+.bc-branding .btn,
+.bc-branding .intro-outro.intro .instructions .btn.next-button {
+    background-color: #4279a6;
+    color: white;
+    border: none;
+    width: 100%;
+    height: 3em;
+}
+
+.bc-branding .btn:hover,
+.bc-branding .btn:not(:disabled):not(.disabled):active,
+.bc-branding .intro-outro.intro .instructions .btn.next-button:hover,
+.bc-branding .intro-outro.intro .instructions .btn.next-button:not(:disabled):not(.disabled):active {
+    background-color: #275378;
+    border-color: transparent;
+}
+
+.bc-branding form {
+    margin: 0 auto;
+    max-width: 700px;
+    padding: 4rem;
+}
+
+/* Register */
+.bc-branding .register .terms, .bc-branding .change-email .terms {
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.bc-branding .register {
+    font-family: BCSans, Arial, sans-serif;
+}
+
+.bc-branding .register p {
+   margin-bottom: 0px;
+   font-size: 0.9em;
+}
+#terms-0 {
+    margin-right: 5px;
+}
+
+/* Steps */
+.bc-branding .steps {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.bc-branding .step > .col {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.bc-branding .boxes {
+    padding-top: 0.5rem;
+    padding-bottom: 3rem;
+}
+
+.bc-branding .intro-outro.intro .boxes .wrap {
+    padding: 3rem;
+}
+fieldset {
+    margin-bottom: 1em;
+}
+
+.bc-branding .boxes > .col + .col {
+    /*margin-left: 2rem;*/
+}
+
+.bc-branding .boxes hr {
+    height: 1px;
+    margin: 2rem 0;
+}
+
+.bc-branding .buy.boxes .wrap {
+    position: relative;
+    height: 100%;
+}
+
+.bc-branding .intro-outro.intro .boxes .content {
+    padding: 3rem 3rem 5rem;
+}
+
+.bc-branding .intro-outro.intro .boxes .wrap {
+    padding: 0;
+    height: 100%;
+}
+
+.bc-branding .boxes .button-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 3rem;
+    padding-bottom: 2rem;
+    position: absolute;
+    bottom: 0;
+}
+
+.bc-branding .boxes a.btn {
+    width: auto;
+    line-height: 2em;
+    height: auto;
+}
+
+.bc-branding .intro-outro.intro .boxes a.btn {
+    width: 80%;
+    max-width: 300px;
+}
+
+
+@media (max-width: 767.98px) {
+
+}
+
+/* Intro - outro*/
+
+
+.bc-branding .intro-outro.intro hr {
+    background-color: #414042;
+}
+
+.bc-branding .intro-outro .instructions h2 {
+    color: #333333;
+}
+
+
+
+.bc-branding .intro-outro .instructions .tall-image {
+    background-image: url("/img/welcome-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 30%;
+    min-height: 300px;
+}
+
+/* Results page*/
+.black-border-right {
+    border-right: 1px solid black;
+}
+
+.bc-branding .results div.score p {
+    font-size: 18px;
+    margin: 0 auto;
+}
+
+.bc-branding .results div.score p, .bc-branding .results div.score h1 {
+    margin-bottom: 1.2em;
+}
+
+.bc-branding .results div.score .percentage img {
+    margin: 15px 15px 15px 0;
+    height: 2em;
+    display: inline;
+}
+
+.bc-branding .results div.score .percentage p {
+    display: inline;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.bc-branding .results div.score .percentage .score {
+    padding-left: 15px;
+}
+
+.bc-branding .results div.score .boxes {
+    justify-content: center;
+}
+
+.bc-branding .results div.score .image img {
+    vertical-align: middle;
+    max-height: 200px;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+}
+
+.bc-branding .results .disclaimer {
+    margin-top: 1rem;
+    background-color: #f4f4f4;
+}
+
+.bc-branding .results .disclaimer p {
+    font-size: .65rem;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.bc-branding .options h1 {
+    margin-bottom: 38px;
+    font-size: 22px;
+}
+
+.bc-branding .options h2 {
+    font-size: 20px;
+}
+
+.bc-branding .pathway {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.bc-branding .pathway > div {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.bc-branding .results .score .image img {
+    height: 236px;
+}
+
+.bc-branding .results .buy {
+    margin-top: 50px;
+}
+
+.bc-branding .results .buy.boxes > div {
+    min-height: 750px;
+    padding-bottom: 2rem;
+}
+
+.bc-branding .results .buy .head {
+    min-height: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+
+.bc-branding .results .buy .content {
+    min-height: 270px;
+}
+
+.bc-branding .results .buy .head h3 {
+    font-size: 18px;
+    line-height: 24px;
+    color: #fefefe;
+    font-weight: bold;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.bc-branding .results .buy ul {
+    list-style: none;
+    padding: 0 17px;
+    padding-top: 20px;
+}
+
+.bc-branding .pathway img {
+    width: 59px;
+    height: auto;
+    display: inline;
+    vertical-align: top;
+    margin-right: 15px;
+}
+
+.bc-branding .pathway .option {
+    display: inline-block;
+    max-width: 75%;
+    margin: 0 auto;
+}
+
+.bc-branding .pathway .option p {
+    font-size: 16px;
+    line-height: 22px;
+    margin: 0;
+}
+
+.bc-branding .pathway .option p:first-child {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.bc-branding .options a.btn {
+    max-width: 250px;
+    margin: 0 auto;
+    font-weight: bold;
+    line-height: 2em;
+}
+
+
+
+.bg-green {
+    background-color: #b7bf10;
+}
+
+.change-email {
+    display: none;
+}
+
+
+@media (max-width: 992px) {
+    .black-border-right {
+        border: none;
+    }
+    .bc-branding .results .pathway {
+        padding: 0 3em;
+    }
+
+    .bc-branding .results div.score .image img {
+        margin-top: 2em;
+    }
+
+    .bc-branding .results div.score > div:first-child {
+        border-right: none;
+    }
+
+    .bc-branding .pathway {
+        padding: 0 3em;
+    }
+}
+
+
+@media (max-width: 450px) {
+    .bc-branding .results .buy.boxes > div, .bc-branding .results .buy .content {
+        min-height: 0px;
+    }
+    .intro-outro.intro .step-one .image {
+        background-position: left;
+    }
+    .bc-branding .results .score .image img {
+        width: 100%;
+        height: auto;
+    }
+
+}
+@media only screen and (max-width: 650px) {
+   	.bc-branding form {
+   		padding: 1rem !important;
+   	}
+}

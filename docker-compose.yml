@@ -1,0 +1,6 @@
+services:
+  ielts:
+    image: ghcr.io/obrige/gelielts:latest
+    ports:
+      - "5000:5000"
+    restart: unless-stopped

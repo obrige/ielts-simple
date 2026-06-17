@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Users - Admin</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f0f2f5; }
+.admin-layout { display: flex; min-height: 100vh; }
+.sidebar { width: 240px; background: #1a1a2e; color: #eee; padding: 20px 0; flex-shrink: 0; }
+.sidebar h3 { padding: 0 20px 20px; font-size: 1.1rem; color: #fff; border-bottom: 1px solid #333; margin-bottom: 10px; }
+.sidebar a { display: block; padding: 10px 20px; color: #aaa; text-decoration: none; font-size: .9rem; }
+.sidebar a:hover, .sidebar a.active { color: #fff; background: #16213e; }
+.main { flex:1; padding: 30px; overflow-x: auto; }
+.card { background: #fff; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+table { width:100%; border-collapse:collapse; }
+th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; font-size: .9rem; }
+th { font-weight: 600; color: #555; }
+.btn { padding: 6px 14px; border: none; border-radius: 4px; cursor: pointer; font-size: .85rem; text-decoration: none; display: inline-block; }
+.btn-primary { background: #4361ee; color: #fff; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: .75rem; }
+.badge-admin { background: #e8d5f5; color: #6b21a8; }
+.badge-user { background: #dbeafe; color: #1e40af; }
+</style>
+</head>
+<body>
+<div class="admin-layout">
+<div class="sidebar">
+    <h3>IELTS Admin</h3>
+    <a href="/admin">Dashboard</a>
+    <a href="/admin/tests">Tests</a>
+    <a href="/admin/answers">Answer Keys</a>
+    <a href="/admin/users" class="active">Users</a>
+    <a href="/board" style="margin-top:20px; border-top:1px solid #333; padding-top:15px;">← Frontend</a>
+</div>
+<div class="main">
+    <h2>Users</h2>
+    <div class="card">
+        <table>
+            <tr><th>ID</th><th>Name</th><th>Email</th><th>Country</th><th>Role</th><th>Sessions</th><th>Tests Taken</th><th>Joined</th><th></th></tr>
+            {% for u in users %}
+            <tr>
+                <td>{{ u.id }}</td>
+                <td>{{ u.name }}</td>
+                <td>{{ u.email }}</td>
+                <td>{{ u.country }}</td>
+                <td><span class="badge {{ 'badge-admin' if session.get('is_admin') else 'badge-user' }}">User</span></td>
+                <td>{{ u.session_count }}</td>
+                <td>{{ u.tests_taken }}</td>
+                <td>{{ u.created_at[:10] if u.created_at else '' }}</td>
+                <td><a href="/admin/users/{{ u.id }}" class="btn btn-primary btn-sm">View</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+</div>
+</body>
+</html>

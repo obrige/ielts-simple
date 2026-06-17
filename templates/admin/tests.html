@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Admin - Tests</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f0f2f5; }
+.admin-layout { display: flex; min-height: 100vh; }
+.sidebar { width: 240px; background: #1a1a2e; color: #eee; padding: 20px 0; flex-shrink: 0; }
+.sidebar h3 { padding: 0 20px 20px; font-size: 1.1rem; color: #fff; border-bottom: 1px solid #333; margin-bottom: 10px; }
+.sidebar a { display: block; padding: 10px 20px; color: #aaa; text-decoration: none; font-size: .9rem; }
+.sidebar a:hover, .sidebar a.active { color: #fff; background: #16213e; }
+.main { flex:1; padding: 30px; overflow-x: auto; }
+.card { background: #fff; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,.08); margin-bottom: 20px; }
+.btn { padding: 6px 14px; border: none; border-radius: 4px; cursor: pointer; font-size: .85rem; text-decoration: none; display: inline-block; }
+.btn-primary { background: #4361ee; color: #fff; }
+.btn-outline { background: #fff; color: #4361ee; border: 1px solid #4361ee; }
+.btn-danger { background: #e63946; color: #fff; }
+.btn-success { background: #2a9d8f; color: #fff; }
+.btn-sm { padding: 4px 10px; font-size: .8rem; }
+table { width:100%; border-collapse:collapse; }
+th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; font-size: .9rem; }
+th { font-weight: 600; color: #555; }
+.header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+textarea { width:100%; padding:8px; border:1px solid #ccc; border-radius:4px; font-family: monospace; font-size: .85rem; }
+</style>
+</head>
+<body>
+<div class="admin-layout">
+<div class="sidebar">
+    <h3>IELTS Admin</h3>
+    <a href="/admin">Dashboard</a>
+    <a href="/admin/tests" class="active">Tests</a>
+    <a href="/admin/answers">Answer Keys</a>
+    <a href="/admin/users">Users</a>
+    <a href="/board" style="margin-top:20px; border-top:1px solid #333; padding-top:15px;">← Frontend</a>
+</div>
+<div class="main">
+    <div class="header-row">
+        <h2>Tests</h2>
+        <a href="/admin/tests/create" class="btn btn-primary">+ New Test</a>
+    </div>
+    <div class="card">
+        <table>
+            <tr><th>ID</th><th>Title</th><th>Slug</th><th>Type</th><th>Duration</th><th>Questions</th><th>Actions</th></tr>
+            {% for t in tests %}
+            <tr>
+                <td>{{ t.id }}</td>
+                <td>{{ t.title }}</td>
+                <td><code>{{ t.slug }}</code></td>
+                <td>{{ t.test_type }}</td>
+                <td>{{ t.duration_minutes }}m</td>
+                <td>{{ t.qcount }}</td>
+                <td>
+                    <a href="/admin/tests/{{ t.id }}/questions" class="btn btn-outline btn-sm">Questions</a>
+                    <a href="/admin/tests/{{ t.id }}/edit" class="btn btn-outline btn-sm">Edit</a>
+                    <form method="POST" action="/admin/tests/{{ t.id }}/delete" style="display:inline" onsubmit="return confirm('Delete test and all questions?')">
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="card">
+        <h4>Import Tests from JSON</h4>
+        <form onsubmit="importTests(event)">
+            <textarea id="import-json" rows="4" placeholder="Paste JSON from /admin/export"></textarea>
+            <button class="btn btn-success" style="margin-top:8px;">Import</button>
+        </form>
+    </div>
+</div>
+</div>
+<script>
+async function importTests(e) {
+    e.preventDefault();
+    const data = document.getElementById('import-json').value;
+    const resp = await fetch('/admin/import', {method:'POST',headers:{'Content-Type':'application/json'},body:data});
+    const r = await resp.json();
+    alert(r.status === 'ok' ? 'Imported!' : (r.error || 'Error'));
+    location.reload();
+}
+</script>
+</body>
+</html>

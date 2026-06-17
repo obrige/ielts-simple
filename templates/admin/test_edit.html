@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Admin - Edit Test</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+<style>
+.admin-nav { background: #1a237e; color: #fff; padding: 12px 20px; display: flex; gap: 20px; }
+.admin-nav a { color: #fff; text-decoration: none; }
+.container { max-width: 700px; }
+</style>
+</head>
+<body>
+<div class="admin-nav"><strong>IELTS Admin</strong> <a href="/admin/tests">Tests</a> <a href="/board">← Frontend</a></div>
+<div class="container mt-4">
+    <h3>{{ 'Edit' if test else 'Create' }} Test</h3>
+    <form method="POST">
+        <div class="mb-2"><label>Title</label><input name="title" class="form-control" value="{{ test.title if test else '' }}" required></div>
+        <div class="mb-2"><label>Slug</label><input name="slug" class="form-control" value="{{ test.slug if test else '' }}" required placeholder="listening"></div>
+        <div class="mb-2"><label>Type</label><select name="type" class="form-select" required>
+            <option value="listening" {{ 'selected' if test and test.type=='listening' }}>Listening</option>
+            <option value="reading" {{ 'selected' if test and test.type=='reading' }}>Reading</option>
+            <option value="writing" {{ 'selected' if test and test.type=='writing' }}>Writing</option>
+        </select></div>
+        <div class="mb-2"><label>Duration (minutes)</label><input name="duration" type="number" class="form-control" value="{{ test.duration_minutes if test else 30 }}"></div>
+        <div class="mb-2"><label>Parts count</label><input name="part_count" type="number" class="form-control" value="1" min="1" max="10"></div>
+        <div class="mb-2"><label>Has Audio</label><select name="has_audio" class="form-select">
+            <option value="0" {{ 'selected' if test and not test.has_audio }}>No</option>
+            <option value="1" {{ 'selected' if test and test.has_audio }}>Yes</option>
+        </select></div>
+        <div class="mb-2"><label>Audio Src</label><input name="audio_src" class="form-control" value="{{ test.audio_src if test else '/static/audio/listening.mp3' }}"></div>
+        <div class="mb-2"><label>Instructions (HTML)</label><textarea name="instructions_top" class="form-control" rows="3">{{ test.instructions_top if test else '' }}</textarea></div>
+        <button class="btn btn-primary">{{ 'Update' if test else 'Create' }}</button>
+        <a href="/admin/tests" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

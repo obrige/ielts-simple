@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+        <meta charset="utf-8"/>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Listening test    </title>
+    <link href="/img/icons/favicon.ico?1574683039" type="image/x-icon" rel="icon"/><link href="/img/icons/favicon.ico?1574683039" type="image/x-icon" rel="shortcut icon"/>
+            <link rel="stylesheet" href="/css/bootstrap.min.css?1574683033"/>        <link rel="stylesheet" href="/css/gel.css?1750245480"/>    <link rel="stylesheet" href="/css/cookie-warning.css?1583231266"/>
+    <link rel="stylesheet" href="/css/remote-test.css?1710836053"/>
+    <link rel="stylesheet" href="/css/contextMenu/jquery.contextMenu.css?1574683031"/>
+            </head>
+<body class="remote-test on-test" spellcheck="false">
+<div class="wrap ">
+    
+
+<div class="top-bar">
+    <div class="logo">
+        <!-- <img class="white" src="/img/GEL IELTS white.svg" alt="GEL IELTS">
+        <img class="color" src="/img/GEL IELTS purple.svg" alt="GEL IELTS"> -->
+    </div>
+    <div class="info">
+        <p class="student-id">XXXXXXXXX</p>
+        <span class="timer">
+                        <p class="not-precise"><span class="time"
+                                                        data-limit="30">30</span> <span
+                                class="minutes">minutes</span> remaining</p>
+            <p class="precise"><span class="minute">30</span> : <span
+                    class="second">00</span> remaining</p>
+        </span>
+    </div>
+        <div class="audio-notice">
+        <div class="audio-container pb-2 pb-md-0">
+            <audio id="audio" src="/audio/listening.mp3"></audio>
+            <p class=""><img src="/img/remote-test/audio.svg" alt="Sound">Audio is playing</p>
+        </div>
+    </div>
+        <div class="interface">
+        <button class="btn end-button">Finish test</button>
+        <img src="/img/remote-test/wifi-alt.svg" style="cursor: pointer;" alt="Connection" title="Network Connection (disabled for the familiarisation test)">
+        <img src="/img/remote-test/bell.svg"  style="cursor: pointer;" alt="Notifications"  title="Notifications (disabled for the familiarisation test)">
+        <img src="/img/remote-test/menu-burger.svg"  style="cursor: pointer;" alt="Menu" title="Menu (disabled for the familiarisation test)">
+        <img id="notes-button" src="/img/remote-test/notes.svg" alt="Notes" title="Highlights/Notes">
+    </div>
+</div>
+
+    
+    
+
+<div class="modal fade" id="hide-screen-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hide-screen-modal-title">Screen hidden</h5>
+            </div>
+            <div class="modal-body">
+                <p>Your answers have been stored.</p>
+                <p>Please note that the clock is still running. The time has not been paused.</p>
+                <p>If you wish to leave the room, please tell your invigilator.</p>
+                <p>Click the button bellow to go back to your test.</p>
+                <button type="button" class="btn btn-primary bc-button" data-dismiss="modal">Resume test</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="test-ended-modal" tabindex="-1" role="dialog" aria-hidden="true"
+     data-instructions-note="In your real IELTS test the remote proctor will advise you what to do. In this familiarisation test if you don’t click “Continue” the system will do so automatically.">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="test-ended-modal-title">Test ended</h5>
+            </div>
+            <div class="modal-body">
+                <p>Your test has finished.</p>
+                <p>All of your answers have been stored.</p>
+                <p>Please wait for further instructions.</p>
+                <a href="/next" type="button" class="btn btn-primary bc-button">Continue</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The test -->
+<div id="test-container" class="test-area px-lg-5 d-none">
+    <div class="">
+        <div class="">
+                    </div>
+    </div>
+
+    <div class="mx-lg-n5">
+        <div id="test" class="py-3 px-lg-5 test test-listening view content"
+             data-test-id="1"
+             data-test-type="listening"
+             data-session-id="{{ session_id }}"
+             data-audio-src="/audio/listening.mp3"
+        >
+
+            <!--            <div class="row title">
+                <div class="col">
+                    <h3 class="bold align-text-bottom"><? /*= ucfirst($test->test_type->name) */ ?> <span
+                            id="exercise-type-desc"
+                            class="bold italic"></span>
+                    </h3>
+                </div>
+            </div>
+-->
+            <div id="highlightable-content">
+                                <div class="col">
+    <div class="row">
+                            
+                <div class="col title mb-2 " data-test-part="1">
+                    <h3>Part 1</h3>
+                    <p>Listen and answer questions 1 - 10.</p>
+                </div>
+
+                                                                            
+                <div class="col title mb-2 hidden" data-test-part="2">
+                    <h3>Part 2</h3>
+                    <p>Listen and answer questions 11 - 20.</p>
+                </div>
+
+                                                                            
+                <div class="col title mb-2 hidden" data-test-part="3">
+                    <h3>Part 3</h3>
+                    <p>Listen and answer questions 21 - 30.</p>
+                </div>
+
+                                                                            
+                <div class="col title mb-2 hidden" data-test-part="4">
+                    <h3>Part 4</h3>
+                    <p>Listen and answer questions 31 - 40.</p>
+                </div>
+
+                                                                    </div>
+    <div class="row">
+
+        <div class="col exercises has-parts">
+                            <div id="exercise-1"
+                     class="row exercise exercise-mc1"
+                     data-exercise-id="1"
+                     data-exercise-type="mc1"
+                     data-exercise-type-desc="Multiple Choice (one answer)"
+                     data-test-part="1"
+                >
+                    <div class="col col-lg">
+                            <div class="row">
+        <div class="col"><p class="bold">Questions 1                - 6</p>
+        </div>
+    </div>
+            <div class="row">
+            <div class="col instructions">
+                <p>Choose the correct answer.</p>
+            </div>
+        </div>
+        <ul class="row list-unstyled font-weight-bold questions">
+                                <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-1">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="1"><span
+                                    class="q-number">1</span>Mr Griffin has been to the Sunrise Hotel ...</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-1">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-1"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="1"
+                                                               data-answer-id="1"
+                                                               value="1"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... once previously.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-1"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="1"
+                                                               data-answer-id="2"
+                                                               value="2"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... twice previously.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-1"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="1"
+                                                               data-answer-id="3"
+                                                               value="3"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... three times previously.</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                                            <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-2">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="2"><span
+                                    class="q-number">2</span>Mr Griffin is from ...</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-2">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-2"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="2"
+                                                               data-answer-id="4"
+                                                               value="4"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... Melbourne.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-2"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="2"
+                                                               data-answer-id="5"
+                                                               value="5"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... Sydney.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-2"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="2"
+                                                               data-answer-id="6"
+                                                               value="6"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... Perth.</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                                                <div class="w-100"></div>
+                        <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-3">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="3"><span
+                                    class="q-number">3</span>Mr&nbsp;Griffin&rsquo;s passport number is ...</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-3">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-3"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="3"
+                                                               data-answer-id="7"
+                                                               value="7"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... 87647489.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-3"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="3"
+                                                               data-answer-id="8"
+                                                               value="8"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... 87637289.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-3"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="3"
+                                                               data-answer-id="9"
+                                                               value="9"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... 87637489.</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                                            <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-4">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="4"><span
+                                    class="q-number">4</span>Mr&nbsp;Griffin wants to book ...</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-4">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-4"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="4"
+                                                               data-answer-id="10"
+                                                               value="10"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... a single room for 2 nights.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-4"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="4"
+                                                               data-answer-id="11"
+                                                               value="11"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... a double room for 2 nights.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-4"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="4"
+                                                               data-answer-id="12"
+                                                               value="12"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... a single room for 1 night.</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                                                <div class="w-100"></div>
+                        <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-5">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="5"><span
+                                    class="q-number">5</span>Mr&nbsp;Griffin will arrive at the Sunrise Hotel by ...</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-5">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-5"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="5"
+                                                               data-answer-id="13"
+                                                               value="13"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... 9.15 p.m.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-5"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="5"
+                                                               data-answer-id="14"
+                                                               value="14"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... 10.00 p.m.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-5"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="5"
+                                                               data-answer-id="15"
+                                                               value="15"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... 9.35 p.m.</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                                            <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-6">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="6"><span
+                                    class="q-number">6</span>When he gets to the Sunrise Hotel, the food Mr&nbsp;Griffin will find in his room will be ...</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-6">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-6"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="6"
+                                                               data-answer-id="16"
+                                                               value="16"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... a cheese sandwich with fries.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-6"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="6"
+                                                               data-answer-id="17"
+                                                               value="17"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... a cheese sandwich.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-6"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="6"
+                                                               data-answer-id="18"
+                                                               value="18"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... a burger.</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                        </ul>
+                                            </div>
+                </div>
+                            <div id="exercise-2"
+                     class="row exercise exercise-note"
+                     data-exercise-id="2"
+                     data-exercise-type="note"
+                     data-exercise-type-desc="(Note Completion)"
+                     data-test-part="1"
+                >
+                    <div class="col col-lg">
+                            <div class="row">
+        <div class="col">
+                        <p class="bold">Questions 7 - 10</p>
+        </div>
+    </div>
+            <div class="row">
+            <div class="col instructions">
+                <p>Answer the questions. Write <strong>NO MORE THAN THREE WORDS AND / OR A NUMBER </strong> in each gap.</p>
+            </div>
+        </div>
+        <div class="row">
+                                <div class="col col-12 col-lg-6" id="question-7">
+                <div class="row" id="answers-7">
+                    <div class="col">
+                                                    <p class="bold answers">
+                                                        <p>What number room will Mr&nbsp;Griffin be in at the Sunrise Hotel? <input id='answer-19' class='answer' name='answer-7' data-question-id='7'
+                                              data-answer-id='19' type='text' placeholder='7' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></p>
+
+<p>How much will Mr&nbsp;Griffin pay per night at the Sunrise Hotel? $ <input id='answer-20' class='answer' name='answer-7' data-question-id='7'
+                                              data-answer-id='20' type='text' placeholder='8' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></p>
+
+<p>Who will take Mr&nbsp;Griffin&rsquo;s food to his room? <input id='answer-21' class='answer' name='answer-7' data-question-id='7'
+                                              data-answer-id='21' type='text' placeholder='9' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></p>
+
+<p>How much will Mr&nbsp;Griffin pay for his food? $ <input id='answer-22' class='answer' name='answer-7' data-question-id='7'
+                                              data-answer-id='22' type='text' placeholder='10' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></p>                                                        </p>
+                                                </div>
+                </div>
+            </div>
+            </div>
+                                            </div>
+                </div>
+                            <div id="exercise-3"
+                     class="row exercise exercise-table hidden"
+                     data-exercise-id="3"
+                     data-exercise-type="table"
+                     data-exercise-type-desc="(Table Completion)"
+                     data-test-part="2"
+                >
+                    <div class="col col-lg">
+                            <div class="row">
+        <div class="col">
+                        <p class="bold">Questions 11 - 15</p>
+        </div>
+    </div>
+            <div class="row">
+            <div class="col instructions">
+                <p>Complete the notes. Write <strong>NO MORE THAN THREE WORDS AND / OR A NUMBER </strong> in each gap.</p>
+            </div>
+        </div>
+        <div class="row">
+                                <div class="col col-12 col-lg-6" id="question-20">
+                <div class="row" id="answers-20">
+                    <div class="col">
+                        <div class="table-responsive-sm answers">
+                            <p><em>Below are descriptions,&nbsp;released by the police, of the two men wanted in connection with the robbery at Nicholls, a local jewellery store.</em></p>
+
+<p><strong>PHOTOFIT PICTURES TO BE RELEASED LATER TODAY</strong></p>
+
+<p><u>Man 1</u></p>
+
+<table>
+    <tbody>
+    <tr>
+        <td>Height</td>
+        <td>About <input id='answer-66' class='answer' name='answer-20' data-question-id='20'
+                                                  data-answer-id='66' type='text' placeholder='11' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></td>
+    </tr>
+    <tr>
+        <td>Build</td>
+        <td>Slight</td>
+    </tr>
+    <tr>
+        <td>Hair</td>
+        <td>Dark</td>
+    </tr>
+    <tr>
+        <td>Face</td>
+        <td>Small moustache</td>
+    </tr>
+    <tr>
+        <td>Clothing</td>
+        <td>
+            <p>Blue jeans</p>
+
+            <p>White T-shirt</p>
+
+            <p>A <input id='answer-67' class='answer' name='answer-20' data-question-id='20'
+                                                  data-answer-id='67' type='text' placeholder='12' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></p>
+
+            <p>Motorbike helmet</p>
+        </td>
+    </tr>
+    <tr>
+        <td>Age</td>
+        <td>Early 20s</td>
+    </tr>
+    </tbody>
+</table>
+<br><br>
+<p><u>Man 2</u></p>
+
+<table>
+    <tbody>
+    <tr>
+        <td>Height</td>
+        <td>About 1 m 83 cms&nbsp;</td>
+    </tr>
+    <tr>
+        <td>Build</td>
+        <td><input id='answer-68' class='answer' name='answer-20' data-question-id='20'
+                                                  data-answer-id='68' type='text' placeholder='13' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></td>
+    </tr>
+    <tr>
+        <td>Hair</td>
+        <td>Red</td>
+    </tr>
+    <tr>
+        <td>Face</td>
+        <td>Clean shaven</td>
+    </tr>
+    <tr>
+        <td>Clothing</td>
+        <td>
+            <p>Dark blue sweater</p>
+
+            <p><input id='answer-69' class='answer' name='answer-20' data-question-id='20'
+                                                  data-answer-id='69' type='text' placeholder='14' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></p>
+
+            <p>Motorbike helmet</p>
+        </td>
+    </tr>
+    <tr>
+        <td>Age</td>
+        <td><input id='answer-70' class='answer' name='answer-20' data-question-id='20'
+                                                  data-answer-id='70' type='text' placeholder='15' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></td>
+    </tr>
+    </tbody>
+</table>                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+                                            </div>
+                </div>
+                            <div id="exercise-4"
+                     class="row exercise exercise-mc1 hidden"
+                     data-exercise-id="4"
+                     data-exercise-type="mc1"
+                     data-exercise-type-desc="Multiple Choice (one answer)"
+                     data-test-part="2"
+                >
+                    <div class="col col-lg">
+                            <div class="row">
+        <div class="col"><p class="bold">Questions 16                - 20</p>
+        </div>
+    </div>
+            <div class="row">
+            <div class="col instructions">
+                <p>Choose the correct answer.</p>
+            </div>
+        </div>
+        <ul class="row list-unstyled font-weight-bold questions">
+                                <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-8">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="8"><span
+                                    class="q-number">16</span>A local computer company called Comptec is ...</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-8">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-8"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="8"
+                                                               data-answer-id="23"
+                                                               value="23"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... advertising vacancies for new employees.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-8"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="8"
+                                                               data-answer-id="24"
+                                                               value="24"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... planning to expand in order to increase competition.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-8"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="8"
+                                                               data-answer-id="25"
+                                                               value="25"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... reducing the number of its workers in its factory.</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                                            <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-9">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="9"><span
+                                    class="q-number">17</span>Westley International Airport has announced it ...</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-9">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-9"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="9"
+                                                               data-answer-id="26"
+                                                               value="26"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... has won a prize for excellence.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-9"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="9"
+                                                               data-answer-id="27"
+                                                               value="27"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... will offer flights to new European destinations.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-9"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="9"
+                                                               data-answer-id="28"
+                                                               value="28"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... is looking for employees for its flights to European countries.</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                                                <div class="w-100"></div>
+                        <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-10">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="10"><span
+                                    class="q-number">18</span>Action by a local environmental group has caused the local council to ...</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-10">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-10"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="10"
+                                                               data-answer-id="29"
+                                                               value="29"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... cancel plans for development of a local shopping centre.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-10"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="10"
+                                                               data-answer-id="30"
+                                                               value="30"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... change its plans for development of a local shopping centre.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-10"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="10"
+                                                               data-answer-id="31"
+                                                               value="31"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... develop woodland on the site of a demolished shopping centre.</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                                            <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-11">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="11"><span
+                                    class="q-number">19</span>A sports event in August is ...</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-11">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-11"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="11"
+                                                               data-answer-id="32"
+                                                               value="32"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... recommended for listeners.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-11"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="11"
+                                                               data-answer-id="33"
+                                                               value="33"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... scheduled to take place in Newbury.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-11"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="11"
+                                                               data-answer-id="34"
+                                                               value="34"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... cancelled due to a forecast heatwave.</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                                                <div class="w-100"></div>
+                        <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-12">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="12"><span
+                                    class="q-number">20</span>The presenter suggests listeners will be ...</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-12">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-12"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="12"
+                                                               data-answer-id="35"
+                                                               value="35"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... happy about the weather forecast for August.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-12"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="12"
+                                                               data-answer-id="36"
+                                                               value="36"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... surprised about the weather forecast for August.</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-12"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="12"
+                                                               data-answer-id="37"
+                                                               value="37"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >... doubtful about the weather report for August.</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                        </ul>
+                                            </div>
+                </div>
+                            <div id="exercise-5"
+                     class="row exercise exercise-note hidden"
+                     data-exercise-id="5"
+                     data-exercise-type="note"
+                     data-exercise-type-desc="(Note Completion)"
+                     data-test-part="3"
+                >
+                    <div class="col col-lg">
+                            <div class="row">
+        <div class="col">
+                        <p class="bold">Questions 21 - 26</p>
+        </div>
+    </div>
+            <div class="row">
+            <div class="col instructions">
+                <p>Complete the notes. Write <strong>NO MORE THAN THREE WORDS AND / OR A NUMBER </strong> in each gap.</p>
+            </div>
+        </div>
+        <div class="row">
+                                <div class="col col-12 col-lg-6" id="question-13">
+                <div class="row" id="answers-13">
+                    <div class="col">
+                                                <div class="table-responsive-sm answers">
+                                                        <p><strong>ADMISSION TUTOR&rsquo;S NOTES</strong></p>
+
+<table>
+	<tbody>
+		<tr>
+			<td>Student&rsquo;s name</td>
+			<td>Robert Johnson</td>
+		</tr>
+		<tr>
+			<td>Subject to study</td>
+			<td><input id='answer-38' class='answer' name='answer-13' data-question-id='13'
+                                              data-answer-id='38' type='text' placeholder='21' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></td>
+		</tr>
+		<tr>
+			<td>Why this subject?</td>
+			<td>
+			<p>Always interested</p>
+
+			<p>Father&rsquo;s field</p>
+
+			<p>At school, good at mathematics and <input id='answer-39' class='answer' name='answer-13' data-question-id='13'
+                                              data-answer-id='39' type='text' placeholder='22' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></p>
+			</td>
+		</tr>
+		<tr>
+			<td>Gap year</td>
+			<td>Worked and travelled in &nbsp;<input id='answer-40' class='answer' name='answer-13' data-question-id='13'
+                                              data-answer-id='40' type='text' placeholder='23' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'> and New Zealand</td>
+		</tr>
+		<tr>
+			<td>Jobs during gap year</td>
+			<td>
+			<p>Delivered furniture</p>
+
+			<p>Pub work</p>
+
+			<p>Worked in a <input id='answer-41' class='answer' name='answer-13' data-question-id='13'
+                                              data-answer-id='41' type='text' placeholder='24' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></p>
+
+			<p>Building site</p>
+			</td>
+		</tr>
+		<tr>
+			<td>Why Westley University?</td>
+			<td>
+			<p>Department has a <input id='answer-42' class='answer' name='answer-13' data-question-id='13'
+                                              data-answer-id='42' type='text' placeholder='25' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></p>
+
+			<p>Graduates from Westley get jobs in industry quickly</p>
+
+			<p>Near Snowdonia for <input id='answer-43' class='answer' name='answer-13' data-question-id='13'
+                                              data-answer-id='43' type='text' placeholder='26' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></p>
+
+			<p>Likes football - Westley has lots of teams</p>
+			</td>
+		</tr>
+	</tbody>
+</table>                                                    </div>
+                                        </div>
+                </div>
+            </div>
+            </div>
+                                            </div>
+                </div>
+                            <div id="exercise-6"
+                     class="row exercise exercise-mc1 hidden"
+                     data-exercise-id="6"
+                     data-exercise-type="mc1"
+                     data-exercise-type-desc="Multiple Choice (one answer)"
+                     data-test-part="3"
+                >
+                    <div class="col col-lg">
+                            <div class="row">
+        <div class="col"><p class="bold">Questions 27                - 30</p>
+        </div>
+    </div>
+            <div class="row">
+            <div class="col instructions">
+                <p>Choose the correct answer.</p>
+            </div>
+        </div>
+        <ul class="row list-unstyled font-weight-bold questions">
+                                <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-14">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="14"><span
+                                    class="q-number">27</span>In which year(s) will Robert gain work experience instead of having exams?</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-14">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-14"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="14"
+                                                               data-answer-id="44"
+                                                               value="44"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >First and second years</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-14"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="14"
+                                                               data-answer-id="45"
+                                                               value="45"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >Third year</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-14"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="14"
+                                                               data-answer-id="46"
+                                                               value="46"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >Fourth year</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                                            <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-15">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="15"><span
+                                    class="q-number">28</span>In which year(s) will Robert have five exams near the end of the academic year?</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-15">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-15"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="15"
+                                                               data-answer-id="47"
+                                                               value="47"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >First and second years</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-15"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="15"
+                                                               data-answer-id="48"
+                                                               value="48"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >Third year</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-15"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="15"
+                                                               data-answer-id="49"
+                                                               value="49"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >Fourth year</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                                                <div class="w-100"></div>
+                        <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-16">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="16"><span
+                                    class="q-number">29</span>In which year(s) will Robert need to produce extended written work?</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-16">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-16"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="16"
+                                                               data-answer-id="50"
+                                                               value="50"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >First and second years</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-16"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="16"
+                                                               data-answer-id="51"
+                                                               value="51"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >Third year</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-16"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="16"
+                                                               data-answer-id="52"
+                                                               value="52"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >Fourth year</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                                            <li class="col col-12 col-lg-6 mt-md-4 font-weight-normal question" id="question-17">
+                <div class="row">
+                    <div class="col">
+                        <p class="">
+                            <span class="question-text" data-question-id="17"><span
+                                    class="q-number">30</span>In which year(s) will Robert have eight exams at the end of the academic year?</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" id="answers-17">
+                    <div class="col">
+                        <ul class="list-unstyled pl-4 answers">
+                                                                                                <li class="">
+                                        <label class=""><input name="answer-17"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="17"
+                                                               data-answer-id="53"
+                                                               value="53"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >First and second years</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-17"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="17"
+                                                               data-answer-id="54"
+                                                               value="54"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >Third year</label>
+                                    </li>
+                                                                    <li class="">
+                                        <label class=""><input name="answer-17"
+                                                               class="answer"
+                                                               type="radio"
+                                                               data-question-id="17"
+                                                               data-answer-id="55"
+                                                               value="55"
+                                                               autocomplete='off'
+                                                               autocorrect='off'
+                                                               autocapitalize='off'
+                                                               spellcheck='false'
+                                            >Fourth year</label>
+                                    </li>
+                                                                                    </ul>
+                    </div>
+                </div>
+            </li>
+                        </ul>
+                                            </div>
+                </div>
+                            <div id="exercise-7"
+                     class="row exercise exercise-note hidden"
+                     data-exercise-id="7"
+                     data-exercise-type="note"
+                     data-exercise-type-desc="(Note Completion)"
+                     data-test-part="4"
+                >
+                    <div class="col col-lg">
+                            <div class="row">
+        <div class="col">
+                        <p class="bold">Questions 31 - 33</p>
+        </div>
+    </div>
+            <div class="row">
+            <div class="col instructions">
+                <p>Complete the notes. Write <strong>NO MORE THAN THREE WORDS AND / OR A NUMBER </strong> in each gap.</p>
+            </div>
+        </div>
+        <div class="row">
+                                <div class="col col-12 col-lg-6" id="question-18">
+                <div class="row" id="answers-18">
+                    <div class="col">
+                                                    <p class="bold answers">
+                                                        <p>The lecture will be useful for any students who are writing <input id='answer-56' class='answer' name='answer-18' data-question-id='18'
+                                              data-answer-id='56' type='text' placeholder='31' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'> and theses.</p>
+
+<p>Modernised countries are described by the speaker as now being <input id='answer-57' class='answer' name='answer-18' data-question-id='18'
+                                              data-answer-id='57' type='text' placeholder='32' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'>.</p>
+
+<p>The size of a sample depends on the <input id='answer-58' class='answer' name='answer-18' data-question-id='18'
+                                              data-answer-id='58' type='text' placeholder='33' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'> required.</p>                                                        </p>
+                                                </div>
+                </div>
+            </div>
+            </div>
+                                            </div>
+                </div>
+                            <div id="exercise-8"
+                     class="row exercise exercise-note hidden"
+                     data-exercise-id="8"
+                     data-exercise-type="note"
+                     data-exercise-type-desc="(Note Completion)"
+                     data-test-part="4"
+                >
+                    <div class="col col-lg">
+                            <div class="row">
+        <div class="col">
+                        <p class="bold">Questions 34 - 40</p>
+        </div>
+    </div>
+            <div class="row">
+            <div class="col instructions">
+                <p>Complete the notes. Write <strong>NO MORE THAN THREE WORDS AND / OR A NUMBER </strong> in each gap.</p>
+            </div>
+        </div>
+        <div class="row">
+                                <div class="col col-12 col-lg-6" id="question-19">
+                <div class="row" id="answers-19">
+                    <div class="col">
+                                                <div class="table-responsive-sm answers">
+                                                        <p><strong>Survey size</strong>: Depends on total population size. A thousand individual surveys can reflect the total population.</p>
+
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <p><strong>Type of Survey</strong></p>
+        </td>
+        <td><strong>Advantages</strong></td>
+        <td><strong>Disadvantages</strong></td>
+    </tr>
+    <tr>
+        <td>Mail</td>
+        <td>Relatively <input id='answer-59' class='answer' name='answer-19' data-question-id='19'
+                                              data-answer-id='59' type='text' placeholder='34' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'><br />
+            Good for particular groups</td>
+        <td>Not good for decent response rate</td>
+    </tr>
+    <tr>
+        <td>Telephone</td>
+        <td>Good for when time and survey length are limited</td>
+        <td><input id='answer-60' class='answer' name='answer-19' data-question-id='19'
+                                              data-answer-id='60' type='text' placeholder='35' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></td>
+    </tr>
+    <tr>
+        <td>
+            <p>In-person</p>
+        </td>
+        <td>Good for collecting complex information</td>
+        <td>Can mean lots of <input id='answer-61' class='answer' name='answer-19' data-question-id='19'
+                                              data-answer-id='61' type='text' placeholder='36' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></td>
+    </tr>
+    <tr>
+        <td>Street interview</td>
+        <td><input id='answer-62' class='answer' name='answer-19' data-question-id='19'
+                                              data-answer-id='62' type='text' placeholder='37' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></td>
+        <td>
+            <p>Not scientific sampling</p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<table>
+    <tbody>
+    <tr>
+        <td colspan="1" rowspan="4">Survey content</td>
+        <td>
+            <p>Questions can ask about:</p>
+
+            <ul>
+                <li>opinions and attitudes</li>
+                <li>factual characteristics or behaviour</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Questions can be open-ended or of a <input id='answer-63' class='answer' name='answer-19' data-question-id='19'
+                                              data-answer-id='63' type='text' placeholder='38' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'> type</td>
+    </tr>
+    <tr>
+        <td>Questions can be from 5 mins long to 1 hour +</td>
+    </tr>
+    <tr>
+        <td>Survey can use <input id='answer-64' class='answer' name='answer-19' data-question-id='19'
+                                              data-answer-id='64' type='text' placeholder='39' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'> - interviewees can be questioned on two or more occasions</td>
+    </tr>
+    <tr>
+        <td colspan="1" rowspan="3">Ethics</td>
+        <td>Results must not be used commercially</td>
+    </tr>
+    <tr>
+        <td>Individuals should not be mentioned</td>
+    </tr>
+    <tr>
+        <td>Results should be in <input id='answer-65' class='answer' name='answer-19' data-question-id='19'
+                                              data-answer-id='65' type='text' placeholder='40' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'> (i.e.: statistical tables or charts)</td>
+    </tr>
+    </tbody>
+</table>
+                                                    </div>
+                                        </div>
+                </div>
+            </div>
+            </div>
+                                            </div>
+                </div>
+                    </div>
+    </div>
+</div>
+            </div>
+            <div class="arrows">
+                <button class="btn btn-primary prev"><span class="arrow-left"></span></button>
+                <button class="btn btn-primary next"><span class="arrow-right"></span></button>
+            </div>
+        </div>
+    </div>
+
+
+    <span id="csrf" style="display: none;" data-csrf="ab37f7f32d5242c679af55da3d475f4b2e4185f921d08121f82d42f284d1d2f86ea7ec79278264697e4e828457b8121476f4c023be54355f7ddabae4446dde6f"></span>
+</div>
+
+<div class="notes-panel">
+    <div class="notes-title">
+        <p class="bold">Notes</p>
+        <img class="close-notes" src="/img/remote-test/x-lg.svg" alt="Close">
+    </div>
+    <div class="notes-list">
+        <div class="note-item" id="note-item-template">
+            <p class="note-title">Some title</p>
+            <p class="note-content">Some text</p>
+<!--            <p class="note-delete">Delete</p>-->
+        </div>
+    </div>
+</div>
+
+
+<div class="question-navigation ">
+    <div class="question-nav">
+        <ul class="question-buttons" data-nav-part="1">
+                                                                                                    <li class="part-label-holder" data-part-number="1">
+                                <div class="btn btn-primary disabled part-label">Part 1                                </div>
+                            </li>
+                            <li class="answered-count">
+                                <p><span class="count">0</span>&nbsp;of&nbsp;<span class="total"></span></p>
+                            </li>
+                                                                            <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="1"
+                                        data-exercise-id="1"
+                                        data-exercise-type="mc1"
+                                        data-question-id="1"
+                                        data-index="1"
+                                        tabindex="1"
+                                >1</button>
+                            </li>
+                                                    
+                                                                                                <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="1"
+                                        data-exercise-id="1"
+                                        data-exercise-type="mc1"
+                                        data-question-id="2"
+                                        data-index="2"
+                                        tabindex="2"
+                                >2</button>
+                            </li>
+                                                    
+                                                                                                <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="1"
+                                        data-exercise-id="1"
+                                        data-exercise-type="mc1"
+                                        data-question-id="3"
+                                        data-index="3"
+                                        tabindex="3"
+                                >3</button>
+                            </li>
+                                                    
+                                                                                                <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="1"
+                                        data-exercise-id="1"
+                                        data-exercise-type="mc1"
+                                        data-question-id="4"
+                                        data-index="4"
+                                        tabindex="4"
+                                >4</button>
+                            </li>
+                                                    
+                                                                                                <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="1"
+                                        data-exercise-id="1"
+                                        data-exercise-type="mc1"
+                                        data-question-id="5"
+                                        data-index="5"
+                                        tabindex="5"
+                                >5</button>
+                            </li>
+                                                    
+                                                                                                <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="1"
+                                        data-exercise-id="1"
+                                        data-exercise-type="mc1"
+                                        data-question-id="6"
+                                        data-index="6"
+                                        tabindex="6"
+                                >6</button>
+                            </li>
+                                                    
+                                                                                                                                                                    <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="1"
+                                            data-exercise-id="2"
+                                            data-exercise-type="note"
+                                            data-question-id="7"
+                                            data-answer-id="19"
+                                            data-index="7"
+                                            tabindex="7"
+                                    >7</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="1"
+                                            data-exercise-id="2"
+                                            data-exercise-type="note"
+                                            data-question-id="7"
+                                            data-answer-id="20"
+                                            data-index="8"
+                                            tabindex="8"
+                                    >8</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="1"
+                                            data-exercise-id="2"
+                                            data-exercise-type="note"
+                                            data-question-id="7"
+                                            data-answer-id="21"
+                                            data-index="9"
+                                            tabindex="9"
+                                    >9</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="1"
+                                            data-exercise-id="2"
+                                            data-exercise-type="note"
+                                            data-question-id="7"
+                                            data-answer-id="22"
+                                            data-index="10"
+                                            tabindex="10"
+                                    >10</button>
+                                </li>
+                                                                                    
+                                                                                </ul><ul class="question-buttons" data-nav-part="2">                            <li class="part-label-holder" data-part-number="2">
+                                <div class="btn btn-primary disabled part-label">Part 2                                </div>
+                            </li>
+                            <li class="answered-count">
+                                <p><span class="count">0</span>&nbsp;of&nbsp;<span class="total"></span></p>
+                            </li>
+                                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="2"
+                                            data-exercise-id="3"
+                                            data-exercise-type="table"
+                                            data-question-id="20"
+                                            data-answer-id="66"
+                                            data-index="11"
+                                            tabindex="11"
+                                    >11</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="2"
+                                            data-exercise-id="3"
+                                            data-exercise-type="table"
+                                            data-question-id="20"
+                                            data-answer-id="67"
+                                            data-index="12"
+                                            tabindex="12"
+                                    >12</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="2"
+                                            data-exercise-id="3"
+                                            data-exercise-type="table"
+                                            data-question-id="20"
+                                            data-answer-id="68"
+                                            data-index="13"
+                                            tabindex="13"
+                                    >13</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="2"
+                                            data-exercise-id="3"
+                                            data-exercise-type="table"
+                                            data-question-id="20"
+                                            data-answer-id="69"
+                                            data-index="14"
+                                            tabindex="14"
+                                    >14</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="2"
+                                            data-exercise-id="3"
+                                            data-exercise-type="table"
+                                            data-question-id="20"
+                                            data-answer-id="70"
+                                            data-index="15"
+                                            tabindex="15"
+                                    >15</button>
+                                </li>
+                                                                                    
+                                                                                                                                    <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="2"
+                                        data-exercise-id="4"
+                                        data-exercise-type="mc1"
+                                        data-question-id="8"
+                                        data-index="16"
+                                        tabindex="16"
+                                >16</button>
+                            </li>
+                                                    
+                                                                                                <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="2"
+                                        data-exercise-id="4"
+                                        data-exercise-type="mc1"
+                                        data-question-id="9"
+                                        data-index="17"
+                                        tabindex="17"
+                                >17</button>
+                            </li>
+                                                    
+                                                                                                <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="2"
+                                        data-exercise-id="4"
+                                        data-exercise-type="mc1"
+                                        data-question-id="10"
+                                        data-index="18"
+                                        tabindex="18"
+                                >18</button>
+                            </li>
+                                                    
+                                                                                                <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="2"
+                                        data-exercise-id="4"
+                                        data-exercise-type="mc1"
+                                        data-question-id="11"
+                                        data-index="19"
+                                        tabindex="19"
+                                >19</button>
+                            </li>
+                                                    
+                                                                                                <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="2"
+                                        data-exercise-id="4"
+                                        data-exercise-type="mc1"
+                                        data-question-id="12"
+                                        data-index="20"
+                                        tabindex="20"
+                                >20</button>
+                            </li>
+                                                    
+                                                                                </ul><ul class="question-buttons" data-nav-part="3">                            <li class="part-label-holder" data-part-number="3">
+                                <div class="btn btn-primary disabled part-label">Part 3                                </div>
+                            </li>
+                            <li class="answered-count">
+                                <p><span class="count">0</span>&nbsp;of&nbsp;<span class="total"></span></p>
+                            </li>
+                                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="3"
+                                            data-exercise-id="5"
+                                            data-exercise-type="note"
+                                            data-question-id="13"
+                                            data-answer-id="38"
+                                            data-index="21"
+                                            tabindex="21"
+                                    >21</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="3"
+                                            data-exercise-id="5"
+                                            data-exercise-type="note"
+                                            data-question-id="13"
+                                            data-answer-id="39"
+                                            data-index="22"
+                                            tabindex="22"
+                                    >22</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="3"
+                                            data-exercise-id="5"
+                                            data-exercise-type="note"
+                                            data-question-id="13"
+                                            data-answer-id="40"
+                                            data-index="23"
+                                            tabindex="23"
+                                    >23</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="3"
+                                            data-exercise-id="5"
+                                            data-exercise-type="note"
+                                            data-question-id="13"
+                                            data-answer-id="41"
+                                            data-index="24"
+                                            tabindex="24"
+                                    >24</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="3"
+                                            data-exercise-id="5"
+                                            data-exercise-type="note"
+                                            data-question-id="13"
+                                            data-answer-id="42"
+                                            data-index="25"
+                                            tabindex="25"
+                                    >25</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="3"
+                                            data-exercise-id="5"
+                                            data-exercise-type="note"
+                                            data-question-id="13"
+                                            data-answer-id="43"
+                                            data-index="26"
+                                            tabindex="26"
+                                    >26</button>
+                                </li>
+                                                                                    
+                                                                                                                                    <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="3"
+                                        data-exercise-id="6"
+                                        data-exercise-type="mc1"
+                                        data-question-id="14"
+                                        data-index="27"
+                                        tabindex="27"
+                                >27</button>
+                            </li>
+                                                    
+                                                                                                <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="3"
+                                        data-exercise-id="6"
+                                        data-exercise-type="mc1"
+                                        data-question-id="15"
+                                        data-index="28"
+                                        tabindex="28"
+                                >28</button>
+                            </li>
+                                                    
+                                                                                                <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="3"
+                                        data-exercise-id="6"
+                                        data-exercise-type="mc1"
+                                        data-question-id="16"
+                                        data-index="29"
+                                        tabindex="29"
+                                >29</button>
+                            </li>
+                                                    
+                                                                                                <li>
+                                <button class="btn btn-primary font-weight-bolder"
+                                        data-part-number="3"
+                                        data-exercise-id="6"
+                                        data-exercise-type="mc1"
+                                        data-question-id="17"
+                                        data-index="30"
+                                        tabindex="30"
+                                >30</button>
+                            </li>
+                                                    
+                                                                                </ul><ul class="question-buttons" data-nav-part="4">                            <li class="part-label-holder" data-part-number="4">
+                                <div class="btn btn-primary disabled part-label">Part 4                                </div>
+                            </li>
+                            <li class="answered-count">
+                                <p><span class="count">0</span>&nbsp;of&nbsp;<span class="total"></span></p>
+                            </li>
+                                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="4"
+                                            data-exercise-id="7"
+                                            data-exercise-type="note"
+                                            data-question-id="18"
+                                            data-answer-id="56"
+                                            data-index="31"
+                                            tabindex="31"
+                                    >31</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="4"
+                                            data-exercise-id="7"
+                                            data-exercise-type="note"
+                                            data-question-id="18"
+                                            data-answer-id="57"
+                                            data-index="32"
+                                            tabindex="32"
+                                    >32</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="4"
+                                            data-exercise-id="7"
+                                            data-exercise-type="note"
+                                            data-question-id="18"
+                                            data-answer-id="58"
+                                            data-index="33"
+                                            tabindex="33"
+                                    >33</button>
+                                </li>
+                                                                                    
+                                                                                                                                                                    <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="4"
+                                            data-exercise-id="8"
+                                            data-exercise-type="note"
+                                            data-question-id="19"
+                                            data-answer-id="59"
+                                            data-index="34"
+                                            tabindex="34"
+                                    >34</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="4"
+                                            data-exercise-id="8"
+                                            data-exercise-type="note"
+                                            data-question-id="19"
+                                            data-answer-id="60"
+                                            data-index="35"
+                                            tabindex="35"
+                                    >35</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="4"
+                                            data-exercise-id="8"
+                                            data-exercise-type="note"
+                                            data-question-id="19"
+                                            data-answer-id="61"
+                                            data-index="36"
+                                            tabindex="36"
+                                    >36</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="4"
+                                            data-exercise-id="8"
+                                            data-exercise-type="note"
+                                            data-question-id="19"
+                                            data-answer-id="62"
+                                            data-index="37"
+                                            tabindex="37"
+                                    >37</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="4"
+                                            data-exercise-id="8"
+                                            data-exercise-type="note"
+                                            data-question-id="19"
+                                            data-answer-id="63"
+                                            data-index="38"
+                                            tabindex="38"
+                                    >38</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="4"
+                                            data-exercise-id="8"
+                                            data-exercise-type="note"
+                                            data-question-id="19"
+                                            data-answer-id="64"
+                                            data-index="39"
+                                            tabindex="39"
+                                    >39</button>
+                                </li>
+                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="4"
+                                            data-exercise-id="8"
+                                            data-exercise-type="note"
+                                            data-question-id="19"
+                                            data-answer-id="65"
+                                            data-index="40"
+                                            tabindex="40"
+                                    >40</button>
+                                </li>
+                                                                                    
+                                                        </ul>
+    </div>
+    <span class="question-counter" data-total-questions="40" style="display: none;"></span>
+</div>
+
+
+	<script src="/js/lib/jquery-3.6.0.min.js?1710836053"></script>
+	<script src="/js/lib/jquery-ui.min.js?1574683029"></script>
+	<script src="/js/lib/resizer.js?1750245480"></script>
+
+
+</div>
+
+<div id="cookieWarning" class="on-test" style="display: none;">
+    <div class="close-warning"><img src="/img/icons/exit-white.svg"></div>
+    <div class="warning-text">
+        <p>We use cookies to improve our service. By continuing you agree to our use of cookies. <a href="/pages/privacy">Find out more</a></p>
+    </div>
+</div>
+</body>
+<script src="/js/lib/jquery.jplayer.min.js?1574683028"></script><script src="/js/lib/popper.min.js?1574683029"></script><script src="/js/bootstrap/bootstrap.min.js?1574683026"></script>
+    
+	<script src="/js/lib/rangy/rangy-core.js?1574683028"></script>
+	<script src="/js/lib/rangy/rangy-highlighter.js?1574683028"></script>
+	<script src="/js/lib/rangy/rangy-textrange.js?1574683028"></script>
+	<script src="/js/lib/rangy/rangy-classapplier.js?1574683028"></script>
+	<script src="/js/lib/notes.js?1710836053"></script>
+
+    <script src="/js/lib/contextMenu/jquery.ui.position.js?1574683028"></script>    <script src="/js/lib/contextMenu/jquery.contextMenu.js?1574683029"></script>
+    
+	<script src="/js/gel/test.js?1750245480"></script>
+	<script src="/js/gel/instructions.js?1710836053"></script>
+
+<script>
+    $(function () {
+        $("#help-button").on("mouseup tap", function(e){
+            notice(e, "help-clicked");
+        });
+        if (window.location.pathname == "/results") {
+            notice(0, "results-loaded");
+        }
+        function notice(event, eventName) {
+            $.ajax({
+                cache: false,
+                withCredentials: true,
+                url: "/notice",
+                type: "POST",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("X-CSRF-Token", "ab37f7f32d5242c679af55da3d475f4b2e4185f921d08121f82d42f284d1d2f86ea7ec79278264697e4e828457b8121476f4c023be54355f7ddabae4446dde6f");
+                },
+                data: {
+                    event: eventName,
+                }
+            })
+                .done(function (data) {
+                    if (console && console.log) {
+                        console.log("Response:", data);
+                    }
+                });
+        }
+    });
+    </script>
+
+
+</html>

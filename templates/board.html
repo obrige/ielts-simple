@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS - Dashboard</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f0f2f5; margin: 0; }
+.header { background: #1a1a2e; color: #fff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+.header .id-badge { background: #4361ee; padding: 8px 16px; border-radius: 20px; font-size: .9rem; }
+.header a { color: #ccc; text-decoration: none; font-size: .9rem; }
+.header a:hover { color: #fff; }
+.container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+.card { background: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-bottom: 20px; text-align: center; }
+.card h2 { margin-top: 0; }
+.btn { display: block; padding: 14px; border-radius: 8px; text-decoration: none; font-size: 1rem; margin: 10px 0; text-align: center; }
+.btn-primary { background: #4361ee; color: #fff; }
+.btn-outline { background: #fff; color: #4361ee; border: 2px solid #4361ee; }
+.btn:hover { opacity: .9; }
+.session-list { text-align: left; }
+.session-item { padding: 12px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+.session-item:last-child { border-bottom: none; }
+.session-item .date { color: #666; font-size: .85rem; }
+.session-item .badge { padding: 4px 10px; border-radius: 12px; font-size: .8rem; }
+.badge-done { background: #d4edda; color: #155724; }
+.badge-progress { background: #fff3cd; color: #856404; }
+</style>
+</head>
+<body>
+<div class="header">
+    <strong>IELTS Training</strong>
+    <div>
+        <span class="id-badge">ID: {{ user_id }}</span>
+        <span style="margin: 0 12px; color: #666;">|</span>
+        <a href="/results/history">My Results</a>
+        <span style="margin: 0 12px; color: #666;">|</span>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+<div class="container">
+    <div class="card">
+        <h2>Start a New Test</h2>
+        <p style="color:#666; margin-bottom:20px;">Complete all three sections: Listening, Reading, Writing.</p>
+        <a href="/tests/start/academic" class="btn btn-primary">Start Full Test →</a>
+    </div>
+
+    {% if recent_sessions %}
+    <div class="card">
+        <h3>Recent Sessions</h3>
+        <div class="session-list">
+            {% for s in recent_sessions %}
+            <div class="session-item">
+                <div>
+                    <strong>{{ s.test_type }}</strong>
+                    <div class="date">{{ s.created_at[:19] if s.created_at else '' }}</div>
+                </div>
+                <span class="badge {{ 'badge-done' if s.done > 0 else 'badge-progress' }}">{{ 'Done' if s.done > 0 else 'In Progress' }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="/results/history" class="btn btn-outline" style="margin-top:15px;">View All Results</a>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>

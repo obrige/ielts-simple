@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+        <meta charset="utf-8"/>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Writing test    </title>
+    <link href="/img/icons/favicon.ico?1574683039" type="image/x-icon" rel="icon"/><link href="/img/icons/favicon.ico?1574683039" type="image/x-icon" rel="shortcut icon"/>
+            <link rel="stylesheet" href="/css/bootstrap.min.css?1574683033"/>        <link rel="stylesheet" href="/css/gel.css?1750245480"/>    <link rel="stylesheet" href="/css/cookie-warning.css?1583231266"/>
+    <link rel="stylesheet" href="/css/remote-test.css?1710836053"/>
+    <link rel="stylesheet" href="/css/contextMenu/jquery.contextMenu.css?1574683031"/>
+            </head>
+<body class="remote-test on-test" spellcheck="false">
+<div class="wrap ">
+    
+
+<div class="top-bar">
+    <div class="logo">
+        <!-- <img class="white" src="/img/GEL IELTS white.svg" alt="GEL IELTS">
+        <img class="color" src="/img/GEL IELTS purple.svg" alt="GEL IELTS"> -->
+    </div>
+    <div class="info">
+        <p class="student-id">XXXXXXXXX</p>
+        <span class="timer">
+                        <p class="not-precise"><span class="time"
+                                                        data-limit="60">60</span> <span
+                                class="minutes">minutes</span> remaining</p>
+            <p class="precise"><span class="minute">60</span> : <span
+                    class="second">00</span> remaining</p>
+        </span>
+    </div>
+        <div class="interface">
+        <button class="btn end-button">Finish test</button>
+        <img src="/img/remote-test/wifi-alt.svg" style="cursor: pointer;" alt="Connection" title="Network Connection (disabled for the familiarisation test)">
+        <img src="/img/remote-test/bell.svg"  style="cursor: pointer;" alt="Notifications"  title="Notifications (disabled for the familiarisation test)">
+        <img src="/img/remote-test/menu-burger.svg"  style="cursor: pointer;" alt="Menu" title="Menu (disabled for the familiarisation test)">
+        <img id="notes-button" src="/img/remote-test/notes.svg" alt="Notes" title="Highlights/Notes">
+    </div>
+</div>
+
+    
+    
+
+<div class="modal fade" id="hide-screen-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hide-screen-modal-title">Screen hidden</h5>
+            </div>
+            <div class="modal-body">
+                <p>Your answers have been stored.</p>
+                <p>Please note that the clock is still running. The time has not been paused.</p>
+                <p>If you wish to leave the room, please tell your invigilator.</p>
+                <p>Click the button bellow to go back to your test.</p>
+                <button type="button" class="btn btn-primary bc-button" data-dismiss="modal">Resume test</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="test-ended-modal" tabindex="-1" role="dialog" aria-hidden="true"
+     data-instructions-note="In your real IELTS test the remote proctor will advise you what to do. In this familiarisation test if you don’t click “Continue” the system will do so automatically.">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="test-ended-modal-title">Test ended</h5>
+            </div>
+            <div class="modal-body">
+                <p>Your test has finished.</p>
+                <p>All of your answers have been stored.</p>
+                <p>Please wait for further instructions.</p>
+                <a href="/next" type="button" class="btn btn-primary bc-button">Continue</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The test -->
+<div id="test-container" class="test-area px-lg-5 d-none">
+    <div class="">
+        <div class="">
+                    </div>
+    </div>
+
+    <div class="mx-lg-n5">
+        <div id="test" class="py-3 px-lg-5 test test-writing view content"
+             data-test-id="3"
+             data-test-type="writing"
+             data-session-id="{{ session_id }}"
+             data-audio-src=""
+        >
+
+            <!--            <div class="row title">
+                <div class="col">
+                    <h3 class="bold align-text-bottom"><? /*= ucfirst($test->test_type->name) */ ?> <span
+                            id="exercise-type-desc"
+                            class="bold italic"></span>
+                    </h3>
+                </div>
+            </div>
+-->
+            <div id="highlightable-content">
+                                <div class="">
+    <div class="">
+                            
+                <div class="col title mb-2 "
+                     data-test-part="1">
+                    <h3>Part 1</h3>
+                    <p>You should spend about 20 minutes on this task. Write at least 150 words.
+</p>
+                </div>
+
+                                            
+                <div class="col title mb-2 hidden"
+                     data-test-part="2">
+                    <h3>Part 2</h3>
+                    <p>You should spend about 40 minutes on this task. Write at least 250 words.</p>
+                </div>
+
+                                    </div>
+    <div class="">
+
+        <div class="exercises has-parts">
+                            <div id="exercise-16"
+                     class="part exercise exercise-task_1"
+                     data-exercise-id="16"
+                     data-exercise-type="task_1"
+                     data-exercise-type-desc="Writing Part 1 "
+                     data-test-part="1"
+					 data-reading-exercise="16"
+                >
+
+                    <div class="pr-md-5 text">
+                            <p><strong><em>The table below shows how the UK unemployed spent their time last year.</em></strong></p>
+
+    <p><strong><em>Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</em></strong></p>
+
+    <img src="/img/table.png" alt="How the Unemployed Spend their Time, UK, last year" title="How the Unemployed Spend their Time, UK, last year">                    </div>
+
+                    <div class="pl-md-4">
+                                                                                    <div class="question" id="question-59">
+
+                                    <textarea id='answer-238' class='answer'
+                                              name='answer-59'
+                                              data-question-id='59'
+                                              data-answer-id='238'
+                                              autocomplete="off"
+                                              autocorrect="off"
+                                              autocapitalize="off"
+                                              spellcheck="false"></textarea>
+                                              <p class="word-count">Word count: 0</p>
+                                </div>
+                                                    
+                    </div>
+                </div>
+
+                            <div id="exercise-17"
+                     class="part exercise exercise-task_2 hidden"
+                     data-exercise-id="17"
+                     data-exercise-type="task_2"
+                     data-exercise-type-desc="Writing Part 2"
+                     data-test-part="2"
+					 data-reading-exercise="17"
+                >
+
+                    <div class="pr-md-5 text">
+                            <p>Write about the following topic:</p>
+    <div class="border-black">
+        <p><strong>Some people argue that all experimentation on animals is bad and should be outlawed.</strong></p>
+        <p><strong>However, others believe that important scientific discoveries can be made from animal experiments. </strong></p>
+        <p><strong>Can experimentation on animals be justified? Are there any alternatives?</strong></p>
+    </div>
+    <p>Give reasons for your answer and include any relevant examples from your own knowledge and experience.</p>                    </div>
+
+                    <div class="pl-md-4">
+                                                                                    <div class="question" id="question-60">
+
+                                    <textarea id='answer-239' class='answer'
+                                              name='answer-60'
+                                              data-question-id='60'
+                                              data-answer-id='239'
+                                              autocomplete="off"
+                                              autocorrect="off"
+                                              autocapitalize="off"
+                                              spellcheck="false"></textarea>
+                                              <p class="word-count">Word count: 0</p>
+                                </div>
+                                                    
+                    </div>
+                </div>
+
+                    </div>
+    </div>
+</div>
+
+	<script src="/js/lib/jquery-3.6.0.min.js?1710836053"></script>
+	<script src="/js/gel/word-counter.js?1710836053"></script>
+            </div>
+            <div class="arrows">
+                <button class="btn btn-primary prev"><span class="arrow-left"></span></button>
+                <button class="btn btn-primary next"><span class="arrow-right"></span></button>
+            </div>
+        </div>
+    </div>
+
+
+    <span id="csrf" style="display: none;" data-csrf="ab37f7f32d5242c679af55da3d475f4b2e4185f921d08121f82d42f284d1d2f86ea7ec79278264697e4e828457b8121476f4c023be54355f7ddabae4446dde6f"></span>
+</div>
+
+<div class="notes-panel">
+    <div class="notes-title">
+        <p class="bold">Notes</p>
+        <img class="close-notes" src="/img/remote-test/x-lg.svg" alt="Close">
+    </div>
+    <div class="notes-list">
+        <div class="note-item" id="note-item-template">
+            <p class="note-title">Some title</p>
+            <p class="note-content">Some text</p>
+<!--            <p class="note-delete">Delete</p>-->
+        </div>
+    </div>
+</div>
+
+
+<div class="question-navigation ">
+    <div class="question-nav">
+        <ul class="question-buttons" data-nav-part="1">
+                                                                                                    <li class="part-label-holder" data-part-number="1">
+                                <div class="btn btn-primary disabled part-label">Part 1                                </div>
+                            </li>
+                            <li class="answered-count">
+                                <p><span class="count">0</span>&nbsp;of&nbsp;<span class="total"></span></p>
+                            </li>
+                                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="1"
+                                            data-exercise-id="16"
+                                            data-exercise-type="task_1"
+                                            data-question-id="59"
+                                            data-answer-id="238"
+                                            data-index="1"
+                                            tabindex="1"
+                                    >1</button>
+                                </li>
+                                                                                    
+                                                                                </ul><ul class="question-buttons" data-nav-part="2">                            <li class="part-label-holder" data-part-number="2">
+                                <div class="btn btn-primary disabled part-label">Part 2                                </div>
+                            </li>
+                            <li class="answered-count">
+                                <p><span class="count">0</span>&nbsp;of&nbsp;<span class="total"></span></p>
+                            </li>
+                                                                                                            <li>
+                                    <button class="btn btn-primary font-weight-bolder"
+                                            data-part-number="2"
+                                            data-exercise-id="17"
+                                            data-exercise-type="task_2"
+                                            data-question-id="60"
+                                            data-answer-id="239"
+                                            data-index="2"
+                                            tabindex="2"
+                                    >2</button>
+                                </li>
+                                                                                    
+                                                        </ul>
+    </div>
+    <span class="question-counter" data-total-questions="2" style="display: none;"></span>
+</div>
+
+
+	
+	<script src="/js/lib/jquery-ui.min.js?1574683029"></script>
+	<script src="/js/lib/resizer.js?1750245480"></script>
+
+
+</div>
+
+<div id="cookieWarning" class="on-test" style="display: none;">
+    <div class="close-warning"><img src="/img/icons/exit-white.svg"></div>
+    <div class="warning-text">
+        <p>We use cookies to improve our service. By continuing you agree to our use of cookies. <a href="/pages/privacy">Find out more</a></p>
+    </div>
+</div>
+</body>
+<script src="/js/lib/jquery.jplayer.min.js?1574683028"></script><script src="/js/lib/popper.min.js?1574683029"></script><script src="/js/bootstrap/bootstrap.min.js?1574683026"></script>
+    
+	<script src="/js/lib/rangy/rangy-core.js?1574683028"></script>
+	<script src="/js/lib/rangy/rangy-highlighter.js?1574683028"></script>
+	<script src="/js/lib/rangy/rangy-textrange.js?1574683028"></script>
+	<script src="/js/lib/rangy/rangy-classapplier.js?1574683028"></script>
+	<script src="/js/lib/notes.js?1710836053"></script>
+
+    <script src="/js/lib/contextMenu/jquery.ui.position.js?1574683028"></script>    <script src="/js/lib/contextMenu/jquery.contextMenu.js?1574683029"></script>
+    
+	<script src="/js/gel/test.js?1750245480"></script>
+	<script src="/js/gel/instructions.js?1710836053"></script>
+
+<script>
+    $(function () {
+        $("#help-button").on("mouseup tap", function(e){
+            notice(e, "help-clicked");
+        });
+        if (window.location.pathname == "/results") {
+            notice(0, "results-loaded");
+        }
+        function notice(event, eventName) {
+            $.ajax({
+                cache: false,
+                withCredentials: true,
+                url: "/notice",
+                type: "POST",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("X-CSRF-Token", "ab37f7f32d5242c679af55da3d475f4b2e4185f921d08121f82d42f284d1d2f86ea7ec79278264697e4e828457b8121476f4c023be54355f7ddabae4446dde6f");
+                },
+                data: {
+                    event: eventName,
+                }
+            })
+                .done(function (data) {
+                    if (console && console.log) {
+                        console.log("Response:", data);
+                    }
+                });
+        }
+    });
+    </script>
+
+
+</html>

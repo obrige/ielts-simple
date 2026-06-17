@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>My Results - IELTS</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f0f2f5; margin: 0; }
+.header { background: #1a1a2e; color: #fff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+.header .id-badge { background: #4361ee; padding: 8px 16px; border-radius: 20px; font-size: .9rem; }
+.header a { color: #ccc; text-decoration: none; font-size: .9rem; }
+.header a:hover { color: #fff; }
+.container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+.card { background: #fff; border-radius: 12px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-bottom: 20px; }
+.score-bar { height: 10px; border-radius: 5px; background: #e0e0e0; margin: 6px 0; }
+.score-fill { height: 100%; border-radius: 5px; transition: width .3s; }
+.score-l { background: #4361ee; }
+.score-r { background: #2a9d8f; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0; }
+.session-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.badge { padding: 4px 10px; border-radius: 12px; font-size: .8rem; }
+.badge-done { background: #d4edda; color: #155724; }
+.badge-progress { background: #fff3cd; color: #856404; }
+.date { color: #666; font-size: .85rem; }
+</style>
+</head>
+<body>
+<div class="header">
+    <strong>IELTS Training</strong>
+    <div>
+        <span class="id-badge">ID: {{ user_id }}</span>
+        <span style="margin: 0 12px; color: #666;">|</span>
+        <a href="/board">Dashboard</a>
+        <span style="margin: 0 12px; color: #666;">|</span>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+<div class="container">
+    <h2>My Test History</h2>
+    {% if session_data %}
+    {% for sd in session_data %}
+    {% set s = sd.session %}
+    <div class="card">
+        <div class="session-header">
+            <div>
+                <strong>{{ s.test_type | capitalize }} Test</strong>
+                <div class="date">{{ s.created_at[:19] if s.created_at else '' }}</div>
+            </div>
+            <span class="badge {{ 'badge-done' if sd.done >= sd.total else 'badge-progress' }}">{{ sd.done }}/{{ sd.total }} done</span>
+        </div>
+        <div class="grid">
+            <div>
+                <small>Listening</small>
+                <div class="score-bar"><div class="score-fill score-l" style="width:{{ sd.scores.l }}%"></div></div>
+                <strong>{{ sd.scores.l }}%</strong>
+            </div>
+            <div>
+                <small>Reading</small>
+                <div class="score-bar"><div class="score-fill score-r" style="width:{{ sd.scores.r }}%"></div></div>
+                <strong>{{ sd.scores.r }}%</strong>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="card" style="text-align:center; padding:40px;">
+        <p style="color:#999;">No test sessions yet.</p>
+        <a href="/board" style="color:#4361ee;">Start your first test →</a>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>

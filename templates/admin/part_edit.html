@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Admin - Edit Part</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+<style>
+.admin-nav { background: #1a237e; color: #fff; padding: 12px 20px; display: flex; gap: 20px; }
+.admin-nav a { color: #fff; text-decoration: none; }
+.container { max-width: 1000px; }
+.group-card { background: #f8f9fa; border-radius: 6px; padding: 15px; margin: 10px 0; }
+.question-card { background: #fff; border: 1px solid #dee2e6; border-radius: 4px; padding: 12px; margin: 8px 0; }
+</style>
+</head>
+<body>
+<div class="admin-nav"><strong>IELTS Admin</strong>
+    <a href="/admin/tests">Tests</a>
+    <a href="/admin/tests/{{ part.test_id }}/parts">← Parts</a>
+    <a href="/board">← Frontend</a>
+</div>
+<div class="container mt-4">
+    <h3>Edit: {{ part.title }}</h3>
+    <form method="POST" class="mb-3">
+        <div class="row">
+            <div class="col"><input name="title" class="form-control" value="{{ part.title }}" placeholder="Part title"></div>
+            <div class="col"><input name="instructions" class="form-control" value="{{ part.instructions or '' }}" placeholder="Instructions"></div>
+        </div>
+        <div class="mt-2"><textarea name="content_html" class="form-control" rows="4" placeholder="HTML content (reading passages, etc.)">{{ part.content_html or '' }}</textarea></div>
+        <button class="btn btn-primary mt-2">Update Part</button>
+    </form>
+    <hr>
+    <h4>Question Groups</h4>
+    {% for g in groups %}
+    <div class="group-card">
+        <div class="d-flex justify-content-between">
+            <strong>{{ g.title or 'Group ' + loop.index|string }}</strong>
+            <form method="POST" action="/admin/groups/{{ g.id }}/delete" style="display:inline" onsubmit="return confirm('Delete group and all questions?')">
+                <button class="btn btn-sm btn-outline-danger">Delete Group</button></form>
+        </div>
+        {% if g.instructions %}<p class="text-muted small">{{ g.instructions }}</p>{% endif %}
+        {% for q in g.questions %}
+        <div class="question-card">
+            <form method="POST" action="/admin/questions/{{ q.id }}/edit" class="row g-2">
+                <div class="col-1"><input name="question_number" class="form-control form-control-sm" value="{{ q.question_number }}" placeholder="Q#"></div>
+                <div class="col-3"><input name="question_text" class="form-control form-control-sm" value="{{ q.question_text or '' }}" placeholder="Question text"></div>
+                <div class="col-1"><input name="sort_order" type="number" class="form-control form-control-sm" value="{{ q.sort_order }}"></div>
+                <div class="col-1"><select name="question_type" class="form-select form-select-sm">
+                    <option value="multiple_choice" {{ 'selected' if q.question_type=='multiple_choice' }}>MC</option>
+                    <option value="fill_blank" {{ 'selected' if q.question_type=='fill_blank' }}>Blank</option>
+                    <option value="essay" {{ 'selected' if q.question_type=='essay' }}>Essay</option>
+                    <option value="matching" {{ 'selected' if q.question_type=='matching' }}>Match</option>
+                    <option value="short_answer" {{ 'selected' if q.question_type=='short_answer' }}>Short</option>
+                </select></div>
+                <div class="col-2"><input name="correct_value" class="form-control form-control-sm" value="{{ q.correct_answer.answer_value if q.correct_answer else '' }}" placeholder="Correct answer"></div>
+                <div class="col-1"><select name="match_type" class="form-select form-select-sm">
+                    <option value="exact" {{ 'selected' if q.correct_answer and q.correct_answer.match_type=='exact' }}>Exact</option>
+                    <option value="contains" {{ 'selected' if q.correct_answer and q.correct_answer.match_type=='contains' }}>Contains</option>
+                    <option value="regex" {{ 'selected' if q.correct_answer and q.correct_answer.match_type=='regex' }}>Regex</option>
+                    <option value="manual" {{ 'selected' if q.correct_answer and q.correct_answer.match_type=='manual' }}>Manual</option>
+                </select></div>
+                <div class="col-1"><input name="points" type="number" step="0.5" class="form-control form-control-sm" value="{{ q.correct_answer.points if q.correct_answer else 1 }}"></div>
+                <div class="col-2">
+                    <button class="btn btn-sm btn-outline-primary">Save</button>
+                    <form method="POST" action="/admin/questions/{{ q.id }}/delete" style="display:inline" onsubmit="return confirm('Delete?')">
+                        <button class="btn btn-sm btn-outline-danger">X</button></form>
+                </div>
+            </form>
+        </div>
+        {% endfor %}
+        <form method="POST" action="/admin/groups/{{ g.id }}/questions/create" class="mt-2 p-2 border-top">
+            <strong class="small">+ Add Question</strong>
+            <div class="row g-1 mt-1">
+                <div class="col-1"><input name="question_number" class="form-control form-control-sm" placeholder="#" required></div>
+                <div class="col-3"><input name="question_text" class="form-control form-control-sm" placeholder="Text"></div>
+                <div class="col-1"><input name="sort_order" type="number" class="form-control form-control-sm" value="0"></div>
+                <div class="col-1"><select name="question_type" class="form-select form-select-sm">
+                    <option value="multiple_choice">MC</option><option value="fill_blank">Blank</option><option value="essay">Essay</option></select></div>
+                <div class="col-2"><input name="correct_value" class="form-control form-control-sm" placeholder="Answer"></div>
+                <div class="col-1"><select name="match_type" class="form-select form-select-sm">
+                    <option>exact</option><option>contains</option><option>regex</option><option>manual</option></select></div>
+                <div class="col-1"><input name="points" type="number" step="0.5" class="form-control form-control-sm" value="1"></div>
+                <div class="col-2"><button class="btn btn-sm btn-success">Add</button></div>
+            </div>
+            <div id="mc-options-{{ g.id }}" class="mt-1" style="display:none">
+                <small>Options (A,B,C,D):</small>
+                <div class="row g-1"><div class="col-1"><input name="option_label" value="A" class="form-control form-control-sm"></div><div class="col-10"><input name="option_text" class="form-control form-control-sm" placeholder="Option text"></div></div>
+                <div class="row g-1"><div class="col-1"><input name="option_label" value="B" class="form-control form-control-sm"></div><div class="col-10"><input name="option_text" class="form-control form-control-sm" placeholder="Option text"></div></div>
+                <div class="row g-1"><div class="col-1"><input name="option_label" value="C" class="form-control form-control-sm"></div><div class="col-10"><input name="option_text" class="form-control form-control-sm" placeholder="Option text"></div></div>
+                <div class="row g-1"><div class="col-1"><input name="option_label" value="D" class="form-control form-control-sm"></div><div class="col-10"><input name="option_text" class="form-control form-control-sm" placeholder="Option text"></div></div>
+            </div>
+        </form>
+    </div>
+    {% endfor %}
+    <form method="POST" action="/admin/parts/{{ part.id }}/groups/create" class="mt-3">
+        <h5>+ Add Question Group</h5>
+        <div class="row">
+            <div class="col"><input name="title" class="form-control" placeholder="Group title (e.g. Questions 1-6)"></div>
+            <div class="col"><input name="instructions" class="form-control" placeholder="Instructions"></div>
+            <div class="col-1"><input name="sort_order" type="number" class="form-control" value="0"></div>
+            <div class="col-2"><button class="btn btn-success">Add Group</button></div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
